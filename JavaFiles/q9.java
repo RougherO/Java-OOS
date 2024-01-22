@@ -1,17 +1,23 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class q9 {
     public static void main(String[] args) {
-        Person person = new Person(25, 70.5, 175.0, new Date(), "123 Main St");
-        Employee employee = new Employee(30, 80.0, 180.0, new Date(), "456 Oak St", 60000, new Date(), 5);
-        Student student = new Student(20, 60.0, 160.0, new Date(), "789 Pine St", 101,
+        Person person = new Person(25, 70.5, 175.0, new GregorianCalendar(1990, 10, 10).getTime(), "123 Main St");
+        Employee employee = new Employee(30, 80.0, 180.0, new GregorianCalendar(2000, 11, 11).getTime(), "456 Oak St",
+                60000, new GregorianCalendar(2003, 9, 9).getTime(), 5);
+        Student student = new Student(20, 60.0, 160.0, new GregorianCalendar(1990, 10, 10).getTime(), "789 Pine St",
+                101,
                 List.of("Math", "Physics", "Chemistry"));
-        Technician technician = new Technician(35, 75.0, 170.0, new Date(), "101 Maple St", 70000, new Date(), 8);
-        Professor professor = new Professor(40, 85.0, 185.0, new Date(), "202 Birch St", 90000, new Date(), 12,
+        Technician technician = new Technician(35, 75.0, 170.0, new GregorianCalendar(2000, 11, 11).getTime(),
+                "101 Maple St", 70000, new GregorianCalendar(2012, 6, 6).getTime(), 8);
+        Professor professor = new Professor(40, 85.0, 185.0, new GregorianCalendar(2000, 11, 11).getTime(),
+                "202 Birch St", 90000, new GregorianCalendar(2012, 5, 5).getTime(), 12,
                 List.of("Computer Science", "Data Science"), new ArrayList<>());
 
         professor.addAdvisee("John Doe");
@@ -76,7 +82,7 @@ class Person {
         return "Age = " + age +
                 "\nWeight = " + weight +
                 "\nHeight = " + height +
-                "\nDate Of Birth = " + dateOfBirth +
+                "\nDate Of Birth = " + dateFormat.format(dateOfBirth) +
                 "\nAddress = " + address;
     }
 
@@ -85,6 +91,7 @@ class Person {
     private final double height;
     private final Date dateOfBirth;
     private String address;
+    protected SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 }
 
 class Employee extends Person {
@@ -119,9 +126,9 @@ class Employee extends Person {
     @Override
     public String toString() {
         return super.toString() +
-                "\nSalary = " + salary +
-                "\nDate Of Joining = " + dateOfJoining +
-                "\nExperience = " + experience;
+                "\nSalary = " + salary + " INR" +
+                "\nDate Of Joining = " + dateFormat.format(dateOfJoining) +
+                "\nExperience = " + experience + " years";
     }
 
     private double salary;

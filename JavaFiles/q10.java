@@ -72,7 +72,7 @@ class Book {
         return "\nAuthor: " + author +
                 "\nTitle: " + title +
                 "\nPublisher: " + publisher +
-                "\nCost: $" + cost;
+                "\nCost: " + cost + " INR";
     }
 
     private final String author;

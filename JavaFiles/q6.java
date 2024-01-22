@@ -59,7 +59,7 @@ class Employee {
         return "\nName = " + name +
                 "\nID = " + id +
                 "\nAddress = " + address +
-                "\nSalary = $" + salary;
+                "\nSalary = " + salary + " INR";
     }
 }
 

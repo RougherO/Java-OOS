@@ -5,12 +5,12 @@ public class q8 {
     public static void main(String[] args) {
         Manager manager = new Manager();
 
-        manager.addAccount(new SavingsAccount(100, "SavingsHolder 1", 1000, 0.05));
-        manager.addAccount(new SavingsAccount(200, "SavingsHolder 2", 2000, 0.10));
+        manager.addAccount(new SavingsAccount(100, "SavingsHolder 1", 10000));
+        manager.addAccount(new SavingsAccount(200, "SavingsHolder 2", 20000));
 
-        manager.addAccount(new CurrentAccount(300, "CurrentHolder 1", 1000));
-        manager.addAccount(new CurrentAccount(400, "CurrentHolder 2", 2000));
-        manager.addAccount(new CurrentAccount(500, "CurrentHolder 3", 3000));
+        manager.addAccount(new CurrentAccount(300, "CurrentHolder 1", 10000));
+        manager.addAccount(new CurrentAccount(400, "CurrentHolder 2", 20000));
+        manager.addAccount(new CurrentAccount(500, "CurrentHolder 3", 30000));
 
         for (Account account : manager.getAccounts()) {
             System.out.println(account);
@@ -49,7 +49,7 @@ class Account {
     public String toString() {
         return "\nAccount Number = " + accountNumber +
                 "\nHolder Name = " + holderName +
-                "\nBalance = " + balance;
+                "\nBalance = " + balance + " INR";
     }
 
     private final int accountNumber;
@@ -58,9 +58,12 @@ class Account {
 }
 
 class SavingsAccount extends Account {
-    SavingsAccount(int accountNumber, String holderName, double balance, double interestRate) {
+    SavingsAccount(int accountNumber, String holderName, double balance) {
         super(accountNumber, holderName, balance);
-        this.interestRate = interestRate;
+    }
+
+    void setInterestRate(double newRate) {
+        this.interestRate = newRate;
     }
 
     double getInterestRate() {
@@ -77,7 +80,7 @@ class SavingsAccount extends Account {
                 "\nInterest Rate = " + interestRate;
     }
 
-    private double interestRate;
+    private double interestRate = 0.05;
 }
 
 class CurrentAccount extends Account {

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 import java.io.File;
 import java.io.IOException;
 
@@ -110,10 +110,11 @@ public class Run {
                 "  -h                    Show this help\n" +
                 "  -c \"<compile args>\"   Compile arguments passed to java compiler as-is\n" +
                 "  -e \"<execute args>\"   Execute arguments passed to JVM as-is\n" +
-                "  -r                    Remove all generated .class files after program execution" +
+                "  -r                    Remove all generated .class files after program execution\n" +
                 "  -m <main file>        Main class file (which contains the main method)\n" +
-                "  -o <output dir>       Output directory of .class files. Defaults to \"ClassFiles\".\n" +
-                "  -s <source dir>       Source directory of .java files to compile. Defaults to \"JavaFiles\".\n";
+                "  -o <output dir>       Output directory of .class files relative to current dir. Defaults to current directory.\n"
+                +
+                "  -s <source dir>       Source directory of .java files to compile relative to current dir. Defaults to current directory.\n";
     }
 
     static private Compile compile;
@@ -124,8 +125,8 @@ public class Run {
     static private String executeArgs = "";
     static private List<String> compileFiles;
     static private String mainFile;
-    static private String sourceFileDir = "JavaFiles";
-    static private String classFileDir = "ClassFiles";
+    static private String sourceFileDir = ".";
+    static private String classFileDir = ".";
     static private String helpMessage;
 }
 
@@ -136,8 +137,8 @@ class Compile {
         if (!compileArgs.isEmpty()) {
             compileCmd.add(compileArgs);
         }
-        files.forEach((String fileName) -> compileCmd.add("./" + sourceFileDir + "/" + fileName));
-        compileCmd.addAll(List.of("-d", "./" + classFileDir));
+        files.parallelStream().forEach((String fileName) -> compileCmd.add("./" + sourceFileDir + "/" + fileName));
+        compileCmd.addAll(List.of("-d", "./" + classFileDir + "/"));
     }
 
     static Compile create(List<String> files, String compileArgs,
@@ -220,7 +221,10 @@ class Cleanup {
     }
 
     void run() throws IOException, InterruptedException {
-        Arrays.asList(cleanDirectory.listFiles()).forEach((File file) -> file.delete());
+        Stream.of(cleanDirectory.listFiles()).parallel().forEach((File file) -> {
+            if (file.getName().endsWith(".class"))
+                file.delete();
+        });
     }
 
     static private int count = 0;

@@ -2,25 +2,20 @@ import java.util.Arrays;
 
 public class q3 {
     public static void main(String[] args) {
-        // Create a stack to hold a maximum of 30 integers
         Stack stack = new Stack(30);
 
-        // Push the numbers 10, 20, 30, 15, 9 onto the stack
         stack.push(10);
         stack.push(20);
         stack.push(30);
         stack.push(15);
         stack.push(9);
 
-        // Print the stack
         stack.printStack();
 
-        // Pop thrice
         stack.pop();
         stack.pop();
         stack.pop();
 
-        // Print the stack again
         stack.printStack();
     }
 }

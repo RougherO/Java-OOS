@@ -1,3 +1,5 @@
+package Ass1;
+
 import java.util.Scanner;
 
 public class q2 {

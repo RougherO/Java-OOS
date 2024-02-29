@@ -1,3 +1,5 @@
+package Ass1;
+
 public class q13 {
     public static void main(String[] args) {
         Truck myTruck = new Truck("Volvo", "Truck", 120,

@@ -1,3 +1,5 @@
+package Ass1;
+
 public class q4 {
     public static void main(String[] args) {
         new Bank();

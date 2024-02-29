@@ -1,3 +1,5 @@
+package Ass1;
+
 import java.util.Arrays;
 
 public class q3 {
